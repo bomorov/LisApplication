@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,14 @@ namespace Infrastructure
 
             return services;
         }
+        public static IServiceCollection AddInfrastructureServices( IServiceCollection services, IConfiguration configuration)
+        {
 
+            services.AddTransient<IDateTime, DateTimeService>();
+
+
+
+            return services;
+        }
     }
 }

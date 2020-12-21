@@ -23,7 +23,7 @@ namespace WebUI.Controllers
         [HttpGet]
         public Task<List<Region>> Index(GetRegionsQuery query)
         {
-            return _mediator.Send(new GetRegionsQuery());
+            return _mediator.Send(query);
         }
     }
 
