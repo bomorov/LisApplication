@@ -5,15 +5,17 @@ using Domain.Common;
 
 namespace Domain.Entities
 {
-    public class Region:AuditableEntity
+    /// <summary>
+    /// Справочник областей
+    /// </summary>
+    public class Region:BaseDictEntity
     {
-        public  string Name { get; set; }
-        public  string Code { get; set; }
-        public  IList<Area> Areas { get; set; }
+
+        public  IList<District> Districts { get; set; }
 
         public Region()
         {
-            Areas=new List<Area>();
+            Districts=new List<District>();
         }
     }
 }

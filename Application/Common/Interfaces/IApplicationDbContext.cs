@@ -9,7 +9,7 @@ namespace Application.Common.Interfaces
     {
         public DbSet<Region> Regions { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
-        public  DbSet<Area> Areas { get; set; }
+        public  DbSet<District> Districts { get; set; }
         Task<int> SaveChangesAsync(CancellationToken token);
     }
 }

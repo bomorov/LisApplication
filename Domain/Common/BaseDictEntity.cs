@@ -1,12 +1,13 @@
 ﻿namespace Domain.Common
 {
     /// <summary>Общий базовый класс для справочников</summary>
-    public abstract class BaseDictEntity
+    public abstract class BaseDictEntity:AuditableEntity
     {
-        /// <summary>PK</summary>
-        public int Id { get; set; }
 
         /// <summary>Наименование</summary>
         public string Name { get; set; }
+
+        /// <summary>Код</summary>
+        public string Code { get; set; }
     }
 }

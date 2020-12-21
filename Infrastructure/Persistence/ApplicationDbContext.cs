@@ -12,13 +12,13 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class ApplicationDbContext : AuditIdentityDbContext<ApplicationUser, ApplicationRole, int, IdentityUserClaim<int>, ApplicationUserRole,
-        IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>, IApplicationDbContext
+    public class ApplicationDbContext : DbContext,IApplicationDbContext
     {
         private IDbContextTransaction _currentTransaction;
         private readonly IDateTime _dateTime;
@@ -32,7 +32,7 @@ namespace Infrastructure.Persistence
 
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<Area> Areas { get; set; }
+        public DbSet<District> Districts { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken token = new CancellationToken())
         {
