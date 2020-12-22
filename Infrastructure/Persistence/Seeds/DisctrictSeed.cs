@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence.Seeds
             var districts = new District[]
             {
                 new District { Id = 1, Name = "Ленинский район", Code = "41711201000000", RegionId = 1, CreatedBy = 1, Created = _initialDate },
-                new District { Id = 2, Name = "Октябрьский район", Code = "41711202000000", RegionId = 1, CreatedBy = 1, Created = _initialDate },
+                new District { Id = 56, Name = "Октябрьский район", Code = "41711202000000", RegionId = 1, CreatedBy = 1, Created = _initialDate },
                 new District { Id = 2, Name = "Первомайский район", Code = "41711203000000",RegionId = 1,CreatedBy = 1, Created = _initialDate },
                 new District { Id = 3, Name = "Свердловский район", Code = "41711204000000",RegionId = 1, CreatedBy = 1, Created = _initialDate },
                 new District { Id = 4, Name = "Ак-Суйский район", Code = "41702205000000", RegionId = 3, CreatedBy = 1, Created = _initialDate },

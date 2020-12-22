@@ -1,7 +1,7 @@
 ﻿namespace Domain.Common
 {
     /// <summary>Общий базовый класс для справочников</summary>
-    public abstract class BaseDictEntity:AuditableEntity
+    public  class BaseDictEntity:AuditableEntity
     {
 
         /// <summary>Наименование</summary>

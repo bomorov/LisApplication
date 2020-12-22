@@ -1,24 +1,21 @@
 ﻿using Application.Common.Interfaces;
-using Audit.EntityFramework;
 using Domain.Common;
 using Domain.Entities;
-using Domain.Identity;
+using Infrastructure.Persistence.Seeds;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext,IApplicationDbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         private IDbContextTransaction _currentTransaction;
         private readonly IDateTime _dateTime;
@@ -27,12 +24,28 @@ namespace Infrastructure.Persistence
             IDateTime dateTime) : base(options)
         {
             _dateTime = dateTime;
-
         }
 
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<District> Districts { get; set; }
+        //public DbSet<Branch> Branches { get; set; }
+        //public DbSet<Citizenship> Citizenships { get; set; }
+        //public DbSet<Extract> Extracts { get; set; }
+        //public DbSet<PrivilegesMedical> PrivilegesMedicals { get; set; }
+        //public DbSet<PrivilegesSocial> PrivilegesSocials { get; set; }
+        //public DbSet<RoleAccessRight> RoleAccessRights { get; set; }
+        //public DbSet<SocialStatus> SocialStatuses { get; set; }
+        //public DbSet<SurgicalOne> SurgicalOnes { get; set; }
+        //public DbSet<SurgicalTwo> SurgicalTwos { get; set; }
+        ////public DbSet<SurgicalThree> SurgicalThrees { get; set; }
+        ////public DbSet<Region> Regions { get; set; }
+        ////public DbSet<District> Districts { get; set; }
+        ////public DbSet<Hospital> Hospitals { get; set; }
+        ////public DbSet<Region> Regions { get; set; }
+        ////public DbSet<District> Districts { get; set; }
+
+
 
         public override Task<int> SaveChangesAsync(CancellationToken token = new CancellationToken())
         {
@@ -61,11 +74,16 @@ namespace Infrastructure.Persistence
 
             return base.SaveChangesAsync(token);
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
+            builder.AddDistrictSeedData();
+            builder.AddRegionSeedData();
+
+            builder.SetPKAutoIncrementNumber();
         }
     }
 }

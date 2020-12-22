@@ -1,0 +1,64 @@
+﻿@using Application.MediatR.Regions.Queries
+@using Domain.Enums
+@using P.Pager
+@using P.Pager.Mvc.Core
+@model Application.MediatR.Regions.Queries.GetRegionsQuery
+
+
+@{
+    ViewData["Title"] = "Список сигналов";
+
+    var regions = (IPager<RegionDto>)ViewData["Regions"];
+    int i = regions.StartItemIndex;
+
+}
+
+@if (regions.Any())
+{
+    <table class="footable table toggle-arrow-tiny mt-4" data-page-size="@regions.TotalPageCount" data-striping="false">
+        <thead>
+            <tr>
+                <th data-toggle="true">#</th>
+                <th>Название</th>
+                <th>Код</th>
+                <th class="text-white" width="10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in regions)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@item.Name</td>
+                    <td>@item.Code </td>
+                    <td class="text-right">
+                      
+                        <a asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn btn-white btn-circle edit-btn-tour"
+                           title="Детали">
+                            <i class="i-Information text-25 text-warning mr-2"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Pager(regions, page => Url.Action("Index", new
+   {
+       page,
+
+   }),
+        new PagerOptions
+        {
+            PagesToDisplay = 10,
+            ClassToPagerContainer = "d-flex justify-content-center"
+        })
+}
+else
+{
+    <div class="alert alert-warning mt-2">
+        Список регионов пуст. ХЗ почему!!!!
+    </div>
+}

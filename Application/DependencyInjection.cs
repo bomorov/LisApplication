@@ -1,12 +1,12 @@
-﻿using FluentValidation;
+﻿using Application.Common.Models;
+using AutoMapper;
+using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Reflection;
-using AutoMapper;
-using Application.Common.Interfaces;
-using AutoMapper.Configuration;
 
 namespace Application
 {
@@ -18,7 +18,7 @@ namespace Application
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddFluentValidation(Assembly.GetExecutingAssembly());
-
+            services.Configure<ApplicationSettings>(configuration.GetSection("ApplicationSettings"));
 
             return services;
         }

@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Entities;
 
 namespace Infrastructure.Persistence.Seeds
 {
-
-    internal static  class RegionSeed
+    internal static class RegionSeed
     {
         private static DateTime _initialDate = new DateTime(1970, 1, 1);
+
         internal static ModelBuilder AddRegionSeedData(this ModelBuilder builder)
         {
             var regions = new Region[]
