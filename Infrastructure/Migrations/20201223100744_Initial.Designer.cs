@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201223081128_Initiakdg")]
-    partial class Initiakdg
+    [Migration("20201223100744_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,9 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<int>("CountBed")
                         .HasColumnType("integer");
@@ -50,9 +52,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("HospitalId");
 
@@ -98,7 +105,9 @@ namespace Infrastructure.Migrations
                         .HasIdentityOptions(100L, null, null, null, null, null);
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -113,12 +122,17 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("RegionId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("RegionId");
 
@@ -675,7 +689,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -696,12 +712,17 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("DistrictId");
 
@@ -716,12 +737,16 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<int>("CoefficentA")
+                        .HasMaxLength(18)
                         .HasColumnType("integer");
 
                     b.Property<int>("CoefficentB")
+                        .HasMaxLength(18)
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Created")
@@ -737,9 +762,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("PrivilegesMedicals");
                 });
@@ -752,12 +782,16 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<int>("CoefficentA")
+                        .HasMaxLength(18)
                         .HasColumnType("integer");
 
                     b.Property<int>("CoefficentB")
+                        .HasMaxLength(18)
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Created")
@@ -773,9 +807,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("PrivilegesSocials");
                 });
@@ -789,7 +828,9 @@ namespace Infrastructure.Migrations
                         .HasIdentityOptions(100L, null, null, null, null, null);
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -804,9 +845,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Regions");
 
@@ -919,9 +965,12 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<int>("Coefficent")
+                        .HasMaxLength(18)
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Created")
@@ -937,9 +986,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("SocialStatuses");
                 });
@@ -1085,6 +1139,43 @@ namespace Infrastructure.Migrations
                     b.ToTable("SurgicalTwos");
                 });
 
+            modelBuilder.Entity("Domain.Entities.TypeJoining", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("TypeJoining");
+                });
+
             modelBuilder.Entity("Domain.Identity.ApplicationRole", b =>
                 {
                     b.Property<int>("Id")
@@ -1107,6 +1198,24 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "0405cb6c-6b34-4407-9c48-836885d581d3",
+                            IsRoot = true,
+                            Name = "Суперадмин",
+                            NormalizedName = "СУПЕРАДМИН"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "598b1376-5f40-40b5-a069-b3d89e8a1b68",
+                            IsRoot = true,
+                            Name = "Администратор",
+                            NormalizedName = "АДМИНИСТРАТОР"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUser", b =>
@@ -1188,6 +1297,28 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            AssignmentDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "c94b51e5-52f3-4a06-a91b-f22a1588f9a4",
+                            EmailConfirmed = false,
+                            FirstName = "администратор",
+                            IsRoot = true,
+                            LastName = "Супер",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "00000000000001",
+                            NormalizedUserName = "00000000000001",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGRfB2kvtgwJUz/zUc6qK9WbgGF390HZb7+SQSNwVj7URD9LMxtsUxhVwxmxDm+lDA==",
+                            PhoneNumberConfirmed = false,
+                            Pin = "00000000000001",
+                            SecurityStamp = "0382afaf-aeae-47ef-983d-c194ba94c64e",
+                            TwoFactorEnabled = false,
+                            UserName = "00000000000001"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUserRole", b =>
@@ -1203,6 +1334,13 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("ApplicationUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Branch", b =>
