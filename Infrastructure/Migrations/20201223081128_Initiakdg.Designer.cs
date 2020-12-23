@@ -3,15 +3,17 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201223081128_Initiakdg")]
+    partial class Initiakdg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1105,24 +1107,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "0405cb6c-6b34-4407-9c48-836885d581d3",
-                            IsRoot = true,
-                            Name = "Суперадмин",
-                            NormalizedName = "СУПЕРАДМИН"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "598b1376-5f40-40b5-a069-b3d89e8a1b68",
-                            IsRoot = true,
-                            Name = "Администратор",
-                            NormalizedName = "АДМИНИСТРАТОР"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUser", b =>
@@ -1204,28 +1188,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            AssignmentDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c94b51e5-52f3-4a06-a91b-f22a1588f9a4",
-                            EmailConfirmed = false,
-                            FirstName = "администратор",
-                            IsRoot = true,
-                            LastName = "Супер",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "00000000000001",
-                            NormalizedUserName = "00000000000001",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfado8y0iGtqS7pg8XhrXMxd9N4uI9W2PRHK+HsSF/4AR4ULdP3jR9E05rr8dGqjA==",
-                            PhoneNumberConfirmed = false,
-                            Pin = "00000000000001",
-                            SecurityStamp = "0382afaf-aeae-47ef-983d-c194ba94c64e",
-                            TwoFactorEnabled = false,
-                            UserName = "00000000000001"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationUserRole", b =>
@@ -1241,13 +1203,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("ApplicationUserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Branch", b =>
