@@ -1,0 +1,44 @@
+﻿.bootstrap-duallistbox-container .btn-group .btn {
+    border-color: lightgray;
+}
+
+.bootstrap-duallistbox-container select {
+    border-color: lightgray;
+}
+
+.moveall,
+.removeall,
+.move,
+.remove {
+    border-color: #663399;
+    color: black;
+}
+
+    .moveall:hover,
+    .removeall:hover,
+    .move:hover,
+    .remove:hover,
+    .moveall:active,
+    .removeall:active,
+    .move:active,
+    .remove:active {
+        color: #fff;
+        background-color: #663399;
+        border-color: #663399;
+    }
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+    background: linear-gradient(#a679d2,#a679d2);
+    background-color: #a679d2 !important;
+}
+
+select[multiple]:focus {
+    color: #665c70;
+    background-color: #fff;
+    border-color: #a679d2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(102, 51, 153, 0.25);
+}

@@ -12,11 +12,11 @@ namespace Domain.Entities
     {
         public  int TherapeuticGroupId { get; set; }
         public  TherapeuticGroup TherapeuticGroup { get; set; }
-        public  IList<TherapeuticTwo> ThreTherapeuticTwos { get; set; }
+        public  IList<TherapeuticTwo> TherapeuticTwos { get; set; }
 
         public TherapeuticOne()
         {
-            ThreTherapeuticTwos=new List<TherapeuticTwo>();
+            TherapeuticTwos=new List<TherapeuticTwo>();
         }
     }
 }

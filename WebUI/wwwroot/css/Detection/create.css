@@ -1,0 +1,8 @@
+﻿.step-item {
+    width: 19%;
+    flex-basis: auto !important;
+}
+
+.step-steps {
+    flex-wrap: wrap;
+}

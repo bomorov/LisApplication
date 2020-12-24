@@ -183,12 +183,32 @@ namespace Infrastructure.Migrations
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
                     LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Code = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SurgicalGroup", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TherapeuticGroup",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    WeightChild = table.Column<double>(type: "double precision", nullable: false),
+                    WeightAdult = table.Column<double>(type: "double precision", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TherapeuticGroup", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,8 +312,8 @@ namespace Infrastructure.Migrations
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
                     LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Code = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,6 +322,31 @@ namespace Infrastructure.Migrations
                         name: "FK_SurgicalOnes_SurgicalGroup_SurgicalGroupId",
                         column: x => x.SurgicalGroupId,
                         principalTable: "SurgicalGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TherapeuticOne",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TherapeuticGroupId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TherapeuticOne", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TherapeuticOne_TherapeuticGroup_TherapeuticGroupId",
+                        column: x => x.TherapeuticGroupId,
+                        principalTable: "TherapeuticGroup",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -346,8 +391,8 @@ namespace Infrastructure.Migrations
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
                     LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Code = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -356,6 +401,31 @@ namespace Infrastructure.Migrations
                         name: "FK_SurgicalTwos_SurgicalOnes_SurgicalOneId",
                         column: x => x.SurgicalOneId,
                         principalTable: "SurgicalOnes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TherapeuticTwo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TherapeuticOneId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TherapeuticTwo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TherapeuticTwo_TherapeuticOne_TherapeuticOneId",
+                        column: x => x.TherapeuticOneId,
+                        principalTable: "TherapeuticOne",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -397,8 +467,8 @@ namespace Infrastructure.Migrations
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
                     LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Code = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -407,6 +477,31 @@ namespace Infrastructure.Migrations
                         name: "FK_SurgicalThrees_SurgicalTwos_SurgicalTwoId",
                         column: x => x.SurgicalTwoId,
                         principalTable: "SurgicalTwos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TherapeuticThree",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TherapeuticTwoId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedBy = table.Column<int>(type: "integer", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "integer", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Code = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TherapeuticThree", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TherapeuticThree_TherapeuticTwo_TherapeuticTwoId",
+                        column: x => x.TherapeuticTwoId,
+                        principalTable: "TherapeuticTwo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -423,7 +518,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "ApplicationUser",
                 columns: new[] { "Id", "AccessFailedCount", "AssignmentDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FairDate", "FirstName", "IsRoot", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "Patronymic", "PhoneNumber", "PhoneNumberConfirmed", "Pin", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c94b51e5-52f3-4a06-a91b-f22a1588f9a4", null, false, null, "администратор", true, "Супер", false, null, "00000000000001", "00000000000001", "AQAAAAEAACcQAAAAEGRfB2kvtgwJUz/zUc6qK9WbgGF390HZb7+SQSNwVj7URD9LMxtsUxhVwxmxDm+lDA==", null, null, false, "00000000000001", "0382afaf-aeae-47ef-983d-c194ba94c64e", false, "00000000000001" });
+                values: new object[] { 1, 0, new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c94b51e5-52f3-4a06-a91b-f22a1588f9a4", null, false, null, "администратор", true, "Супер", false, null, "00000000000001", "00000000000001", "AQAAAAEAACcQAAAAECwQewdrP8Fhp5BzPk/YNeufK5wINGHJFmH30/yZ9iIbW8rAQyW7SV+sqyEFa7NskQ==", null, null, false, "00000000000001", "0382afaf-aeae-47ef-983d-c194ba94c64e", false, "00000000000001" });
 
             migrationBuilder.InsertData(
                 table: "Regions",
@@ -577,9 +672,27 @@ namespace Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_SurgicalGroup_Code",
+                table: "SurgicalGroup",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SurgicalOnes_Code",
+                table: "SurgicalOnes",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SurgicalOnes_SurgicalGroupId",
                 table: "SurgicalOnes",
                 column: "SurgicalGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SurgicalThrees_Code",
+                table: "SurgicalThrees",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SurgicalThrees_SurgicalTwoId",
@@ -587,9 +700,54 @@ namespace Infrastructure.Migrations
                 column: "SurgicalTwoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SurgicalTwos_Code",
+                table: "SurgicalTwos",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SurgicalTwos_SurgicalOneId",
                 table: "SurgicalTwos",
                 column: "SurgicalOneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticGroup_Code",
+                table: "TherapeuticGroup",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticOne_Code",
+                table: "TherapeuticOne",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticOne_TherapeuticGroupId",
+                table: "TherapeuticOne",
+                column: "TherapeuticGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticThree_Code",
+                table: "TherapeuticThree",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticThree_TherapeuticTwoId",
+                table: "TherapeuticThree",
+                column: "TherapeuticTwoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticTwo_Code",
+                table: "TherapeuticTwo",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TherapeuticTwo_TherapeuticOneId",
+                table: "TherapeuticTwo",
+                column: "TherapeuticOneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TypeJoining_Code",
@@ -628,6 +786,9 @@ namespace Infrastructure.Migrations
                 name: "SurgicalThrees");
 
             migrationBuilder.DropTable(
+                name: "TherapeuticThree");
+
+            migrationBuilder.DropTable(
                 name: "TypeJoining");
 
             migrationBuilder.DropTable(
@@ -643,16 +804,25 @@ namespace Infrastructure.Migrations
                 name: "SurgicalTwos");
 
             migrationBuilder.DropTable(
+                name: "TherapeuticTwo");
+
+            migrationBuilder.DropTable(
                 name: "Districts");
 
             migrationBuilder.DropTable(
                 name: "SurgicalOnes");
 
             migrationBuilder.DropTable(
+                name: "TherapeuticOne");
+
+            migrationBuilder.DropTable(
                 name: "Regions");
 
             migrationBuilder.DropTable(
                 name: "SurgicalGroup");
+
+            migrationBuilder.DropTable(
+                name: "TherapeuticGroup");
         }
     }
 }

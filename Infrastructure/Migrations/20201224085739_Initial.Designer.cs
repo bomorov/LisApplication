@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201223100744_Initial")]
+    [Migration("20201224085739_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1006,7 +1006,9 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -1021,7 +1023,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<double>("WeightAdult")
                         .HasColumnType("double precision");
@@ -1030,6 +1034,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("SurgicalGroup");
                 });
@@ -1042,7 +1049,9 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -1057,12 +1066,17 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("SurgicalGroupId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("SurgicalGroupId");
 
@@ -1077,7 +1091,9 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -1092,12 +1108,17 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("SurgicalTwoId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("SurgicalTwoId");
 
@@ -1112,7 +1133,9 @@ namespace Infrastructure.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Code")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -1127,16 +1150,190 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("SurgicalOneId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.HasIndex("SurgicalOneId");
 
                     b.ToTable("SurgicalTwos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<double>("WeightAdult")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("WeightChild")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("TherapeuticGroup");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticOne", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("TherapeuticGroupId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("TherapeuticGroupId");
+
+                    b.ToTable("TherapeuticOne");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticThree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("TherapeuticTwoId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("TherapeuticTwoId");
+
+                    b.ToTable("TherapeuticThree");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticTwo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("character varying(14)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("TherapeuticOneId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("TherapeuticOneId");
+
+                    b.ToTable("TherapeuticTwo");
                 });
 
             modelBuilder.Entity("Domain.Entities.TypeJoining", b =>
@@ -1312,7 +1509,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "00000000000001",
                             NormalizedUserName = "00000000000001",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGRfB2kvtgwJUz/zUc6qK9WbgGF390HZb7+SQSNwVj7URD9LMxtsUxhVwxmxDm+lDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECwQewdrP8Fhp5BzPk/YNeufK5wINGHJFmH30/yZ9iIbW8rAQyW7SV+sqyEFa7NskQ==",
                             PhoneNumberConfirmed = false,
                             Pin = "00000000000001",
                             SecurityStamp = "0382afaf-aeae-47ef-983d-c194ba94c64e",
@@ -1420,6 +1617,39 @@ namespace Infrastructure.Migrations
                     b.Navigation("SurgicalOne");
                 });
 
+            modelBuilder.Entity("Domain.Entities.TherapeuticOne", b =>
+                {
+                    b.HasOne("Domain.Entities.TherapeuticGroup", "TherapeuticGroup")
+                        .WithMany("TherapeuticOnes")
+                        .HasForeignKey("TherapeuticGroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TherapeuticGroup");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticThree", b =>
+                {
+                    b.HasOne("Domain.Entities.TherapeuticTwo", "TherapeuticTwo")
+                        .WithMany("TherapeuticThrees")
+                        .HasForeignKey("TherapeuticTwoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TherapeuticTwo");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticTwo", b =>
+                {
+                    b.HasOne("Domain.Entities.TherapeuticOne", "TherapeuticOne")
+                        .WithMany("TherapeuticTwos")
+                        .HasForeignKey("TherapeuticOneId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TherapeuticOne");
+                });
+
             modelBuilder.Entity("Domain.Identity.ApplicationUserRole", b =>
                 {
                     b.HasOne("Domain.Identity.ApplicationRole", "Role")
@@ -1467,6 +1697,21 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.SurgicalTwo", b =>
                 {
                     b.Navigation("SurgicalThrees");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticGroup", b =>
+                {
+                    b.Navigation("TherapeuticOnes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticOne", b =>
+                {
+                    b.Navigation("TherapeuticTwos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TherapeuticTwo", b =>
+                {
+                    b.Navigation("TherapeuticThrees");
                 });
 
             modelBuilder.Entity("Domain.Identity.ApplicationRole", b =>

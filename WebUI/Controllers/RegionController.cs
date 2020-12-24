@@ -9,7 +9,7 @@ namespace WebUI.Controllers
         public async Task<IActionResult> Index(GetRegionsQuery query)
         {
             ViewData["Regions"] = await Mediator.Send(query);
-            return View(query);
+            return Json(query);
         }
     }
 }
