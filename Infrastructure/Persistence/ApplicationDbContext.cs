@@ -13,11 +13,15 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Audit.EntityFramework;
+using Domain.Identity;
 using Infrastructure.Persistence.Configurations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class ApplicationDbContext : AuditIdentityDbContext<ApplicationUser, ApplicationRole, int, IdentityUserClaim<int>, ApplicationUserRole,
+        IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>, IApplicationDbContext
     {
         private IDbContextTransaction _currentTransaction;
         private readonly IDateTime _dateTime;
@@ -59,12 +63,12 @@ namespace Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = userId;
+                        entry.Entity.CreatedBy = 1;
                         entry.Entity.Created = _dateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = userId;
+                        entry.Entity.LastModifiedBy = 1;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
@@ -78,11 +82,7 @@ namespace Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
-            builder.AddDistrictSeedData();
-            builder.AddRegionSeedData();
-            builder.AddApplicationUserSeedData();
-            builder.AddApplicationRoleSeedData();
-            builder.AddApplicationUserRoleSeedData();
+  
 
             builder.ApplyConfiguration(new ApplicationUserRoleConfiguration());
             foreach (var foreignKey in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
@@ -90,6 +90,11 @@ namespace Infrastructure.Persistence
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            builder.AddDistrictSeedData();
+            builder.AddRegionSeedData();
+            builder.AddApplicationUserSeedData();
+            builder.AddApplicationRoleSeedData();
+            builder.AddApplicationUserRoleSeedData();
             builder.SetPKAutoIncrementNumber();
         }
     }
