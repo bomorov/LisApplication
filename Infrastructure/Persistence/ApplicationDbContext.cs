@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
@@ -45,7 +46,7 @@ namespace Infrastructure.Persistence
         public DbSet<SurgicalOne> SurgicalOnes { get; set; }
         public DbSet<SurgicalTwo> SurgicalTwos { get; set; }
         public DbSet<SurgicalThree> SurgicalThrees { get; set; }
-
+        public DbSet<RToken> RTokens { get; set; }
 
 
 
@@ -75,6 +76,55 @@ namespace Infrastructure.Persistence
             }
 
             return base.SaveChangesAsync(token);
+        }
+
+
+        public async Task BeginTransactionAsync()
+        {
+            if (_currentTransaction != null)
+                return;
+
+            _currentTransaction = await base.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted).ConfigureAwait(false);
+        }
+
+
+        public async Task CommitTransactionAsync()
+        {
+            try
+            {
+                await SaveChangesAsync().ConfigureAwait(false);
+
+                await _currentTransaction?.CommitAsync();
+            }
+            catch
+            {
+                await RollbackTransactionAsync();
+                throw;
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            try
+            {
+                await _currentTransaction?.RollbackAsync();
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

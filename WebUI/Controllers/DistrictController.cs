@@ -13,8 +13,8 @@ namespace WebUI.Controllers
     {
         public async Task<IActionResult> Index(GetDistrictsQuery query)
         {
-            ViewData["Districts"] = await Mediator.Send(query);
-            return View(query);
+            var districts = await Mediator.Send(query);
+            return Ok(districts);
         }
 
 

@@ -14,12 +14,12 @@ using P.Pager;
 
 namespace Application.MediatR.Districts.Queries
 {
-    public class GetDistrictsQuery:IRequest<IPager<DistrictDto>>
+    public class GetDistrictsQuery:IRequest<List<DistrictDto>>
     {
-        public int Page { get; set; } = 1;
+       // public int Page { get; set; } = 1;
     }
 
-    public class GetDistrictQueryHandler:IRequestHandler<GetDistrictsQuery, IPager<DistrictDto>>
+    public class GetDistrictQueryHandler:IRequestHandler<GetDistrictsQuery, List<DistrictDto>>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationDbContext _context;
@@ -32,11 +32,11 @@ namespace Application.MediatR.Districts.Queries
             _applicationSettings = options.Value;
         }
 
-        public async Task<IPager<DistrictDto>> Handle(GetDistrictsQuery request, CancellationToken cancellationToken)
+        public async Task<List<DistrictDto>> Handle(GetDistrictsQuery request, CancellationToken cancellationToken)
         {
             var query =  _context.Districts.AsNoTracking();
             return await _mapper.ProjectTo<DistrictDto>(query)
-                .ToPagerListAsync(request.Page,_applicationSettings.PageSize,cancellationToken);
+                .ToListAsync();//(request.Page,_applicationSettings.PageSize,cancellationToken);
 
         }
     }

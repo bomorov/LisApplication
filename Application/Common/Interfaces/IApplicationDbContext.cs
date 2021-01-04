@@ -20,6 +20,13 @@ namespace Application.Common.Interfaces
         public DbSet<SurgicalOne> SurgicalOnes { get; set; }
         public DbSet<SurgicalTwo> SurgicalTwos { get; set; }
         public DbSet<SurgicalThree> SurgicalThrees { get; set; }
+        public DbSet<RToken> RTokens { get; set; }
         Task<int> SaveChangesAsync(CancellationToken token);
+
+        Task BeginTransactionAsync();
+
+        Task CommitTransactionAsync();
+
+        Task RollbackTransactionAsync();
     }
 }
